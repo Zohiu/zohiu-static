@@ -1,0 +1,212 @@
+:root {
+    /* Colors */
+    color-scheme: dark light;
+
+    --background: light-dark(#f9f5ff, #04000a);
+    /* light-dark doesn't work with gradients. See below for light theme version. */
+    --gradient-background: linear-gradient(0deg, #000000 0%, #04000a 100%); 
+    --object-background: light-dark(#fdecfb, #08000e);
+
+    --primary: light-dark(#cd44c0, #e14cd2);
+    --primary-desaturated: light-dark(#a194a1, #3d273d);
+
+    --secondary: light-dark(#e993cb, #e9bedf);
+    --accent: light-dark(#845fff, #5f39db);
+
+    --text: light-dark(#000000, #eaeaea);
+    --text-gradient: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+
+    --border-color: light-dark(#c59bc2, #623a60);
+
+    /* Sizes */
+    --object-margin: 2em;
+    --object-padding: 2em;
+
+    --small-padding: 0.333em;
+
+    --big-border-radius: 1.333em;
+    --small-border-radius: 0.333em;
+
+    /* Animation stuff */
+    --transition-duration: 100ms;
+
+    /* Sizes - scale ratio 1.333 - perfect fourth */
+    --size6: 5.61rem;
+    --size5: 4.21rem;
+    --size4: 3.16rem;
+    --size3: 2.37rem;
+    --size2: 1.79rem;
+    --size1: 1.33rem;
+    --size0: 1.0rem;
+    --size-1: 0.77rem;
+    --size-2: 0.59rem;
+    --size-3: 0.45rem;
+    --size-4: 0.35rem;
+    --size-5: 0.18rem;
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        --gradient-background: linear-gradient(0deg, #ffffff 0%, #fee2fb 100%);
+    }
+}
+
+/* Fonts */
+@font-face {
+    font-family: HeadingBold;
+    src: url("https://zohiu.de/static/fonts/Onest-Bold.ttf");
+}
+@font-face {
+    font-family: HeadingRegular;
+    src: url("https://zohiu.de/static/fonts/Onest-Medium.ttf");
+}
+@font-face {
+    font-family: Text;
+    src: url("https://zohiu.de/static/fonts/DMSans.ttf");
+}
+@font-face {
+    font-family: Monospace;
+    src: url("https://zohiu.de/static/fonts/DMMono-Regular.ttf");
+}
+
+h1 { font-size: var(--size5); font-family: HeadingBold; }
+h2 { font-size: var(--size4); font-family: HeadingRegular; }
+h3 { font-size: var(--size3); font-family: HeadingRegular; }
+h4 { font-size: var(--size2); font-family: HeadingRegular; }
+h5 { font-size: var(--size1); font-family: HeadingRegular; }
+body { font-size: var(--size0); font-family: Text; }
+caption { font-size: var(--size-1); font-family: Text; }
+small { font-size: var(--size-2); font-family: Text; }
+code { font-family: Monospace; }
+
+/* Basic HTML styling */
+
+body {
+    background: rgb(2,0,36);
+    background: var(--gradient-background);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section, article {
+    background: var(--object-background);
+    margin: var(--object-margin);
+    padding: var(--object-padding);
+    border-radius: var(--big-border-radius);
+}
+
+*:focus {
+    outline: solid var(--secondary);
+}
+
+/* Text styling */
+h1, h2 {
+    background: var(--text-gradient);
+    background-clip: text;
+    color: transparent;
+}
+
+p {
+    margin-top: var(--size0);
+    margin-bottom: var(--size0);
+}
+
+li {
+    margin-top: var(--size-3);
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent);
+    position: relative;
+    transition-duration: var(--transition-duration);
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+a:hover::after, a:focus::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+a:hover, a:focus {
+    color: var(--primary);
+}
+
+/* - Tag styling - */
+
+/* Buttons */
+button, 
+input[type="button"], 
+input[type="submit"] {
+    background: var(--primary);
+    border-radius: var(--small-border-radius);
+    border: none;
+    transition-duration: var(--transition-duration);
+    font-size: var(--size0);
+    font-weight: 700;
+    padding: var(--size-3);
+
+    margin-top: var(--size-2);
+    margin-bottom: var(--size-2);
+}
+button:hover, 
+input[type="button"]:hover, 
+input[type="submit"]:hover {
+    background: var(--primary-desaturated);
+}
+button :is(h1, h2, h3, h4, h5, h6),
+input[type="button"] :is(h1, h2, h3, h4, h5, h6), 
+input[type="submit"] :is(h1, h2, h3, h4, h5, h6) {
+    background: none;
+    color: var(--text);
+    margin: var(--size0);
+}
+
+/* Inputs */
+input, textarea {
+    background: var(--primary-desaturated);
+    border-radius: var(--small-border-radius);
+    border: none;
+
+    font-size: var(--size-0);
+    padding: var(--size-3);
+
+    margin-top: var(--size-2);
+    margin-bottom: var(--size-2);
+}
+
+textarea {
+    resize: none;
+}
+
+/* Range inputs (Firefox only) */
+input[type="range"] {
+    background-color: transparent;
+}
+input[type="range"]::-moz-range-progress {
+    background-color: var(--primary);
+}
+input[type="range"]::-moz-range-track {  
+    background-color: var(--primary-desaturated);
+}
+input[type="range"]:focus {
+    outline: none;
+}
+
+
+hr {
+    color: var(--text);
+}
